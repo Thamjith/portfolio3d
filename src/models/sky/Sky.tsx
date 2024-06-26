@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import skyScene from '../../assets/3d/sky.glb';
 import { useGLTF } from '@react-three/drei';
 
