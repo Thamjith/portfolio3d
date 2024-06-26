@@ -1,10 +1,19 @@
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import Home from './pages/home/Home';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
-    <>
-      <h1>...stay tuned! I can't wait to share it with you once it's ready. It's going to be worth the wait! </h1>
-    </>
-  )
+    <main>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+    </main>
+  );
 }
 
-export default App
+export default App;
