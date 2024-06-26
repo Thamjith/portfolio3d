@@ -1,8 +1,11 @@
 import './Home.scss';
 
+import Bird from '../../models/bird/Bird';
 import { Canvas } from '@react-three/fiber';
 import Island from '../../models/island/Island';
 import Loader from '../../components/loader/Loader';
+import Plane from '../../models/plane/Plane';
+import Sky from '../../models/sky/Sky';
 import { Suspense } from 'react';
 
 const Home = () => {
@@ -40,11 +43,14 @@ const Home = () => {
             groundColor="#000000"
             intensity={1}
           />
+          <Bird />
+          <Sky />
           <Island
             scale={islandScale}
             position={islandPosition}
             rotation={[0.1, 4.7077, 0]}
           />
+          <Plane />
         </Suspense>
       </Canvas>
     </section>
