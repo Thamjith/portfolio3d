@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import './Home.scss';
 
 import { Suspense, useState } from 'react';
@@ -13,6 +11,7 @@ import Sky from '../../models/sky/Sky';
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
+
   const adjustBiplaneForScreenSize = () => {
     let screenScale, screenPosition;
 
@@ -64,11 +63,13 @@ const Home = () => {
             intensity={1}
           />
           <Bird />
-          <Sky />
+          <Sky isRotating={isRotating} />
           <Island
-            scale={islandScale}
+            isRotating={isRotating}
+            setIsRotating={setIsRotating}
             position={islandPosition}
             rotation={[0.1, 4.7077, 0]}
+            scale={islandScale}
           />
           <Plane
             isRotating={isRotating}
