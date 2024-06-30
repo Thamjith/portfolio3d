@@ -1,15 +1,14 @@
-// @ts-nocheck
-
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
-
+// @ts-expect-error | Does .glb supports type defenition? Needs R&D.
 import birdScene from '../../assets/3d/bird.glb';
 import { useFrame } from '@react-three/fiber';
+import { Mesh } from 'three';
 
 // 3D Model from: https://sketchfab.com/3d-models/phoenix-bird-844ba0cf144a413ea92c779f18912042
 const Bird = () => {
-  const birdRef = useRef();
-
+  const birdRef = useRef<Mesh>(null);
+  console.log('type = ', birdRef);
   // Load the 3D model and animations from the provided GLTF file
   const { scene, animations } = useGLTF(birdScene);
 
@@ -19,10 +18,13 @@ const Bird = () => {
   // Play the "Take 001" animation when the component mounts
   // Note: Animation names can be found on the Sketchfab website where the 3D model is hosted.
   useEffect(() => {
-    actions['Take 001'].play();
+    actions['Take 001']?.play();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useFrame(({ clock, camera }) => {
+    if (!birdRef.current) return;
+
     // Update the Y position to simulate bird-like motion using a sine wave
     birdRef.current.position.y = Math.sin(clock.elapsedTime) * 0.2 + 2;
 
