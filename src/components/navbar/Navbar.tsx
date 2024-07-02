@@ -1,26 +1,29 @@
 import './Navbar.scss';
 
+import { ColorModeContext } from '../../App';
+import IconButton  from '@mui/material/IconButton';
 import { NavLink } from 'react-router-dom';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { useTheme } from '@mui/material/styles';
 
 const Navbar = () => {
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+
   return (
-    <header className="header">
-      <NavLink to="/">Home</NavLink>
-      <nav className="nav">
-        <NavLink
-          to="/about"
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-        >
-          About
-        </NavLink>
-        <NavLink
-          to="/projects"
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-        >
-          Projects
-        </NavLink>
-      </nav>
-    </header>
+    <section className="header">
+      <NavLink to="/" className='title'>
+        <Typography variant="h6" gutterBottom>
+          Thamjith Thaha
+        </Typography>
+      </NavLink>
+      <IconButton aria-label="dark mode" onClick={colorMode.toggleColorMode} color="inherit">
+      {theme.palette.mode === 'dark' ? <WbSunnyIcon /> : <NightsStayIcon />}
+      </IconButton>
+    </section>
   );
 };
 

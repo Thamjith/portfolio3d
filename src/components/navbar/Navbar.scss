@@ -2,26 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem; // Add padding if needed
+  padding: 1rem; 
 
-  .logo {
-    width: 4.5rem; // Equivalent to w-18 in Tailwind (18 * 0.25rem)
-    height: 4.5rem; // Equivalent to h-18 in Tailwind (18 * 0.25rem)
-    object-fit: contain;
-  }
-
-  .nav {
-    display: flex;
-    gap: 1.75rem; // Equivalent to gap-7 in Tailwind (7 * 0.25rem)
-    font-size: 1.125rem; // Equivalent to text-lg in Tailwind (1.125rem)
-    font-weight: 500; // Equivalent to font-medium in Tailwind
-
-    .inactive {
-      color: black;
-    }
-
-    .active {
-      color: #2563eb; // Equivalent to text-blue-600 in Tailwind
-    }
+  .title {
+    text-decoration: none;
+    color: inherit;
   }
 }
