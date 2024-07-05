@@ -15,7 +15,7 @@ const SpaceMan = () => {
     }, [actions]);
 
     return (
-        <mesh ref={spacemanRef} rotation={[2, .5, -1]}>
+        <mesh ref={spacemanRef} rotation={[2, .5, -1]} scale={2}>
             <primitive object={scene} />
         </mesh>
     )
