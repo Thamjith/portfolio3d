@@ -2,7 +2,6 @@ import './Home.scss';
 
 import { Canvas } from '@react-three/fiber';
 import DescriptionIcon from '@mui/icons-material/Description';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Loader from '../../components/loader/Loader';
 import { OrbitControls } from '@react-three/drei';
@@ -10,13 +9,13 @@ import SpaceMan from '../../models/spaceman/SpaceMan';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import Stars from '../../models/stars/Stars';
 import { Suspense } from 'react';
 import { useTheme } from '@mui/material/styles';
 
 const actions = [
   { icon: <DescriptionIcon />, name: 'Resume', href: "https://thamjiththaha.com/resume/thamjiththaha.pdf" },
-  { icon: <LinkedInIcon />, name: 'LinkedIn', href: "https://www.linkedin.com/in/thamjith-thaha/" },
-  { icon: <InstagramIcon />, name: 'Instagram', href: "https://www.instagram.com/thamjith.thaha/" }
+  { icon: <LinkedInIcon />, name: 'LinkedIn', href: "https://www.linkedin.com/in/thamjith-thaha/" }
 ];
 
 const Home = () => {
@@ -25,7 +24,7 @@ const Home = () => {
   const handleClick = (link: string) => {
     window.open(link, '_blank');
   };
-  
+
   return (
     <section className="home__container">
       <Canvas className="home__canvas" camera={{ near: 0.1, far: 1000 }}>
@@ -45,20 +44,21 @@ const Home = () => {
             intensity={1}
           />
           <SpaceMan />
+          <Stars />
           <OrbitControls enablePan={false} enableZoom={true} />
         </Suspense>
       </Canvas>
       <SpeedDial
         ariaLabel="Shortcut"
-        sx={{ 
-          position: 'absolute', 
-          bottom: 16, 
+        sx={{
+          position: 'absolute',
+          bottom: 16,
           right: 16,
           '& .MuiSpeedDial-fab': {
-            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black', 
+            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
           },
           '& .MuiSpeedDial-fab:hover': {
-            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black', 
+            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
           },
         }}
         icon={<SpeedDialIcon />}

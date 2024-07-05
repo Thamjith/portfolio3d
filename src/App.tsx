@@ -1,3 +1,5 @@
+import "./App.scss"
+
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -6,10 +8,10 @@ import Home from './pages/home/Home';
 import Navbar from './components/navbar/Navbar';
 import React from 'react';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 function App() {
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -30,17 +32,19 @@ function App() {
   );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <main>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </main>
   );
 }
 
