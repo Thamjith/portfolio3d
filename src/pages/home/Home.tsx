@@ -45,8 +45,8 @@ const Home = () => {
         xs={12}
         md={4}
         sx={{
-          bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
-          color: theme.palette.mode === 'dark' ? 'black' : 'white',
+          bgcolor: theme.palette.mode !== 'dark' ? 'white' : 'black',
+          color: theme.palette.mode !== 'dark' ? 'black' : 'white',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
