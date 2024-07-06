@@ -3,77 +3,116 @@ import './Home.scss';
 import { Canvas } from '@react-three/fiber';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Loader from '../../components/loader/Loader';
 import { OrbitControls } from '@react-three/drei';
 import SpaceMan from '../../models/spaceman/SpaceMan';
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import Stars from '../../models/stars/Stars';
 import { Suspense } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
+import DarkModeSwitcher from '../../components/darkModeSwitcher/DarkModeSwitcher';
+import Stars from '../../models/stars/Stars';
 
-const actions = [
-  { icon: <DescriptionIcon />, name: 'Resume', href: "https://thamjiththaha.com/resume/thamjiththaha.pdf" },
-  { icon: <LinkedInIcon />, name: 'LinkedIn', href: "https://www.linkedin.com/in/thamjith-thaha/" }
+const links = [
+  {
+    id: 0,
+    icon: <DescriptionIcon fontSize="large" />,
+    name: 'Resume',
+    href: 'https://thamjiththaha.com/resume/thamjiththaha.pdf',
+  },
+  {
+    id: 1,
+    icon: <LinkedInIcon fontSize="large" />,
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/thamjith-thaha/',
+  },
+  {
+    id: 2,
+    icon: <GitHubIcon fontSize="large" />,
+    name: 'Github',
+    href: 'https://github.com/Thamjith',
+  },
 ];
 
 const Home = () => {
   const theme = useTheme();
 
-  const handleClick = (link: string) => {
-    window.open(link, '_blank');
-  };
-
   return (
-    <section className="home__container">
-      <Canvas className="home__canvas" camera={{ near: 0.1, far: 1000 }}>
-        <Suspense fallback={<Loader />}>
-          <directionalLight position={[1, 1, 1]} intensity={2} />
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 5, 10]} intensity={2} />
-          <spotLight
-            position={[0, 50, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={2}
-          />
-          <hemisphereLight
-            color="#b1e1ff"
-            groundColor="#000000"
-            intensity={1}
-          />
-          <SpaceMan />
-          <Stars />
-          <OrbitControls enablePan={false} enableZoom={true} />
-        </Suspense>
-      </Canvas>
-      <SpeedDial
-        ariaLabel="Shortcut"
+    <Grid container style={{ height: '100vh' }}>
+      {/* Left Bar - 30% */}
+      <Grid
+        item
+        xs={12}
+        md={4}
         sx={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16,
-          '& .MuiSpeedDial-fab': {
-            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
-          },
-          '& .MuiSpeedDial-fab:hover': {
-            bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
-          },
+          bgcolor: theme.palette.mode === 'dark' ? 'white' : 'black',
+          color: theme.palette.mode === 'dark' ? 'black' : 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          p: 2,
         }}
-        icon={<SpeedDialIcon />}
-        className='home__speedial'
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            onClick={() => handleClick(action.href)}
-          />
-        ))}
-      </SpeedDial>
-    </section>
+        <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
+          <Typography variant="h1" component="h2">
+            Hi,
+          </Typography>
+          <Typography variant="h5" component="h2">
+            My name is Thamjith Thaha.
+          </Typography>
+          <Typography variant="h5" component="h2">
+            I'm a full stack software engineer
+          </Typography>
+          {/* Icons for LinkedIn, GitHub, and Resume */}
+          <Box
+            sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 2 }}
+          >
+            {links.map((ele) => (
+              <IconButton
+                key={ele.id}
+                component="a"
+                href={ele.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="inherit"
+                aria-label="LinkedIn"
+              >
+                {ele.icon}
+              </IconButton>
+            ))}
+          </Box>
+        </Box>
+      </Grid>
+
+      {/* Right Side - 70% */}
+      <Grid item xs={12} md={8} sx={{ position: 'relative' }}>
+        <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1 }}>
+          <DarkModeSwitcher />
+        </Box>
+        <Canvas className="home__canvas" camera={{ near: 0.1, far: 1000 }}>
+          <Suspense fallback={<Loader />}>
+            <directionalLight position={[1, 1, 1]} intensity={2} />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 5, 10]} intensity={2} />
+            <spotLight
+              position={[0, 50, 10]}
+              angle={0.15}
+              penumbra={1}
+              intensity={2}
+            />
+            <hemisphereLight
+              color="#b1e1ff"
+              groundColor="#000000"
+              intensity={1}
+            />
+            <SpaceMan />
+            <Stars />
+            <OrbitControls enablePan={false} enableZoom={true} />
+          </Suspense>
+        </Canvas>
+      </Grid>
+    </Grid>
   );
 };
 
