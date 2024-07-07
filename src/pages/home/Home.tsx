@@ -38,13 +38,17 @@ const Home = () => {
   const theme = useTheme();
 
   return (
-    <Grid container style={{ height: '100vh' }}>
+    <Grid container style={{ height: '100vh' }} sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1 }}>
+        <DarkModeSwitcher />
+      </Box>
       {/* Left Bar - 30% */}
       <Grid
         item
         xs={12}
         md={4}
         sx={{
+          minHeight: '100vh',
           bgcolor: theme.palette.mode !== 'dark' ? 'white' : 'black',
           color: theme.palette.mode !== 'dark' ? 'black' : 'white',
           display: 'flex',
@@ -87,9 +91,6 @@ const Home = () => {
 
       {/* Right Side - 70% */}
       <Grid item xs={12} md={8} sx={{ position: 'relative' }}>
-        <Box sx={{ position: 'absolute', top: 16, right: 16, zIndex: 1 }}>
-          <DarkModeSwitcher />
-        </Box>
         <Canvas className="home__canvas" camera={{ near: 0.1, far: 1000 }}>
           <Suspense fallback={<Loader />}>
             <directionalLight position={[1, 1, 1]} intensity={2} />
@@ -108,7 +109,14 @@ const Home = () => {
             />
             <SpaceMan />
             <Stars />
-            <OrbitControls enablePan={false} enableZoom={true} />
+            <OrbitControls
+              enablePan={false}
+              enableZoom={true}
+              touches={{
+                ONE: 1, // 1: rotate
+                TWO: 2, // 2: pan (or zoom if you need)
+              }}
+            />
           </Suspense>
         </Canvas>
       </Grid>
