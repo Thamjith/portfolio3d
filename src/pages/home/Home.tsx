@@ -7,7 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Loader from '../../components/loader/Loader';
 import { OrbitControls } from '@react-three/drei';
 import SpaceMan from '../../models/spaceman/SpaceMan';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import DarkModeSwitcher from '../../components/darkModeSwitcher/DarkModeSwitcher';
@@ -36,6 +36,20 @@ const links = [
 
 const Home = () => {
   const theme = useTheme();
+  // State to track if screen size is extra small (xs)
+  const [isXsScreen, setIsXsScreen] = useState(false);
+
+  // Function to update isXsScreen based on current window width
+  const updateScreenSize = () => {
+    setIsXsScreen(window.innerWidth < theme.breakpoints.values.sm); // Adjust breakpoint as needed
+  };
+
+  useEffect(() => {
+    updateScreenSize();
+    window.addEventListener('resize', updateScreenSize);
+    return () => window.removeEventListener('resize', updateScreenSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Grid container style={{ height: '100vh' }} sx={{ position: 'relative' }}>
@@ -90,7 +104,28 @@ const Home = () => {
       </Grid>
 
       {/* Right Side - 70% */}
-      <Grid item xs={12} md={8} sx={{ position: 'relative' }}>
+      <Grid
+        item
+        xs={12}
+        md={8}
+        sx={{ position: 'relative' }}
+        style={{ height: '100vh' }}
+      >
+        {/* Transparent overlay to intercept touch events */}
+        {isXsScreen && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 2,
+              background: 'transparent',
+              touchAction: 'auto', // Allow touch events to pass through
+            }}
+          />
+        )}
         <Canvas className="home__canvas" camera={{ near: 0.1, far: 1000 }}>
           <Suspense fallback={<Loader />}>
             <directionalLight position={[1, 1, 1]} intensity={2} />
@@ -113,8 +148,8 @@ const Home = () => {
               enablePan={false}
               enableZoom={true}
               touches={{
-                ONE: 1, // 1: rotate
-                TWO: 2, // 2: pan (or zoom if you need)
+                ONE: 1, // Rotate with one finger
+                TWO: 2, // Pan with two fingers
               }}
             />
           </Suspense>
