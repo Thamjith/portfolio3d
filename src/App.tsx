@@ -3,6 +3,7 @@ import './App.scss';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home/Home';
@@ -39,6 +40,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Analytics />
+          <SpeedInsights />
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
