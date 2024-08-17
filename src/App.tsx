@@ -2,6 +2,7 @@ import './App.scss';
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Analytics } from '@vercel/analytics/react';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home/Home';
@@ -37,6 +38,7 @@ function App() {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Analytics />
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
